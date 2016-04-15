@@ -50,7 +50,7 @@
 
 #include <stdlib.h>
 #ifdef WIN32
-#include <Winsock2.h>
+#include <winsock2.h>
 #define snprintf _snprintf
 #else
 #include <sys/types.h>

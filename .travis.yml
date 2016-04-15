@@ -1,9 +1,10 @@
 language: c
 
-#addons:
-#  apt:
-#    packages:
-#      - p7zip
+addons:
+  apt:
+    packages:
+      - binutils-mingw-w64-i686
+      - gcc-mingw-w64-i686
 
 before_script:
   - wget --timeout=120 https://dl.google.com/android/repository/android-ndk-r11c-linux-x86_64.zip -O ndk.zip
@@ -14,6 +15,14 @@ script:
   - (cd bootimg && make)
   - (cd bootimg && mkdir -p out && cp bootimg out/bootimg_x64 && make clean) && (cd libsepol && make clean)
 
+  - export CROSS=i686-w64-mingw32-
+  - export CC=${CROSS}gcc
+  - export LD=${CROSS}ld
+  - export AS=${CROSS}as
+  - (cd libsepol && make)
+  - (cd bootimg && make)
+  - (cd bootimg && mkdir -p out && cp bootimg out/bootimg.exe && make clean) && (cd libsepol && make clean)
+
   - export SYSROOT=$(pwd)/android-ndk-r11c/platforms/android-21/arch-arm
   - export CROSS=$(pwd)/android-ndk-r11c/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-
   - export CC=${CROSS}gcc
@@ -22,6 +31,7 @@ script:
   - (cd libsepol && make)
   - (cd bootimg && make)
   - (cd bootimg && mkdir -p out && cp bootimg out/bootimg_arm && make clean) && (cd libsepol && make clean)
+
 
   - file bootimg/out/*
 
@@ -34,5 +44,6 @@ deploy:
   file:
     - bootimg/out/bootimg_x64
     - bootimg/out/bootimg_arm
+    - bootimg/out/bootimg.exe
   on:
     tags: true
