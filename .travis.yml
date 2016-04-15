@@ -1,5 +1,6 @@
 language: c
 script: "(cd libsepol && make); (cd bootimg && make)"
+before_deploy: "sha1sum bootimg/bootimg_x86"
 deploy:
   provider: releases
   skip_cleanup: true
