@@ -13,24 +13,26 @@ before_script:
 script: 
   - (cd libsepol && make)
   - (cd bootimg && make)
-  - (cd bootimg && mkdir -p out && cp bootimg out/bootimg_x64 && make clean) && (cd libsepol && make clean)
+  - (cd bootimg && mkdir -p out && cp bootimg out/bootimg_x64; make clean); (cd libsepol && make clean)
 
   - export CROSS=i686-w64-mingw32-
   - export CC=${CROSS}gcc
   - export LD=${CROSS}ld
   - export AS=${CROSS}as
+  - export AR=${CROSS}ar
   - (cd libsepol && make)
   - (cd bootimg && make)
-  - (cd bootimg && mkdir -p out && cp bootimg out/bootimg.exe && make clean) && (cd libsepol && make clean)
+  - (cd bootimg && mkdir -p out && cp bootimg out/bootimg.exe; make clean); (cd libsepol && make clean)
 
   - export SYSROOT=$(pwd)/android-ndk-r11c/platforms/android-21/arch-arm
   - export CROSS=$(pwd)/android-ndk-r11c/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-
   - export CC=${CROSS}gcc
   - export LD=${CROSS}ld
   - export AS=${CROSS}as
+  - export AR=${CROSS}ar
   - (cd libsepol && make)
   - (cd bootimg && make)
-  - (cd bootimg && mkdir -p out && cp bootimg out/bootimg_arm && make clean) && (cd libsepol && make clean)
+  - (cd bootimg && mkdir -p out && cp bootimg out/bootimg_arm; make clean); (cd libsepol && make clean)
 
 
   - file bootimg/out/*
