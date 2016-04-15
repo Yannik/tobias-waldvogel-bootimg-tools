@@ -2,7 +2,7 @@
 # License: GPLv2
 
 # dependency generation loosely based on http://make.mad-scientist.net/papers/advanced-auto-dependency-generation
-CFLAGS=-I ../libsepol --sysroot=$(SYSROOT)
+CFLAGS=-I ../libsepol -I ../include2 --sysroot=$(SYSROOT)
 LIBS="../libsepol/libsepol_$(ARCH).a"
 SRCS = $(wildcard *.c)
 OBJS=$(SRCS:.c=.o)
