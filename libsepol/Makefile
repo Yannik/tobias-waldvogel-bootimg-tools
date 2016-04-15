@@ -2,7 +2,7 @@
 # License: GPLv2
 
 # dependency generation loosely based on http://make.mad-scientist.net/papers/advanced-auto-dependency-generation
-CFLAGS=-I . --sysroot=$(SYSROOT)
+CFLAGS+=-I . --sysroot=$(SYSROOT)
 SRCS = $(wildcard *.c)
 OBJS=$(SRCS:.c=.o)
 DEPS := $(SRCS:.c=.d)
