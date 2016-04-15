@@ -1,12 +1,12 @@
 language: c
-script: "(cd libsepol && make); (cd bootimg && make)"
-before_deploy: "sha1sum bootimg/bootimg_x86"
+script: "(cd libsepol && make ARCH=x64); (cd bootimg && make ARCH=x64)"
+before_deploy: "sha1sum bootimg/bootimg_x64"
 deploy:
   provider: releases
   skip_cleanup: true
   api_key:
     secure: pPPTH/l2Eu2FK8CXeJrPyafVcIojKVMVHeCUwjbFkWwr4j3aDRY6On4S6bpAqyZVC7lrRMMTNEVmXx6ps7VzOmORsvUHj0Vkjg4dqiLYqmO+YpNumul3fIQWIoqknv3NRa+e77+eT0LKWMrNgGe4bjr63WScRzkjFM6XVtDtt/Om4IdLXaX8CYyJ+qUE2s3Ziav/i6l8JB3cYMeMOdVKCElV6PTyt/taugPajSwMZUgSEHtDLX4dzz8T/QxAwjhUhkjcOzBWh2sRB8yyniXIVu5ccj8oXLSOLmbkAAbdUfuvrosk6GRyP9euFiTaU494+heL8bR+Q046AqkqD6N2uV0O8mhys1P0P5uSEwe2VgVbYbIpDhlaamaneXMZ2hlws45M8c7RV8D4F4bY7upCWtYp9vzidWlNR6uGzBqTQNidAGmj0RHn4KV/N5lSVQUPvUSs0TS9kKTerckhbcTKFE1paBidFAmquBsmAxy+XdCyDhS2O569sf690vHxVO4zJvGiyHBguAnmbtjkkJRfs2yiPYQeBwFOlP14oGff/9K6GTP5O6zn1A2PY18mu+1MAQbNBwWTIVd+E59PkT1n/243dxIts8O4eumCkvPWQX/UlG0Vp0IPU+h67BV4KVLs2fh35qDFG5y2OLJsjLnOEIUgDsa20TXso9F7XX0H6TI=
   file:
-    - bootimg/bootimg_x86
+    - bootimg/bootimg_x64
   on:
     tags: true
