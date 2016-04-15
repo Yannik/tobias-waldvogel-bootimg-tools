@@ -8,5 +8,4 @@ deploy:
   file:
     - bootimg/bootimg_x86
   on:
-    repo: Yannik/tobias-waldvogel-bootimg-tools
-    branch: add-automatic-builds
+    tags: true
