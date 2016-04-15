@@ -5,16 +5,15 @@
 CFLAGS=-I . --sysroot=$(SYSROOT)
 SRCS = $(wildcard *.c)
 OBJS=$(SRCS:.c=.o)
-ARCH=x86
 DEPS := $(SRCS:.c=.d)
 DEPFLAGS = -MT $@ -MMD -MP -MF $*.Td
 POSTCOMPILE = @mv -f $*.Td $*.d
 .PHONY: all clean build
 
-all: libsepol_$(ARCH).a
+all: libsepol.a
 
-libsepol_$(ARCH).a: $(OBJS)
-	$(AR) rcs libsepol_$(ARCH).a $(OBJS)
+libsepol.a: $(OBJS)
+	$(AR) rcs libsepol.a $(OBJS)
 
 %.o: %.c %.d
 	$(CC) -c $(DEPFLAGS) $(CFLAGS) $< -o $@
@@ -23,6 +22,6 @@ libsepol_$(ARCH).a: $(OBJS)
 %.d: ;
 
 clean:
-	rm -f *.o *.d libsepol_$(ARCH).a
+	rm -f *.o *.d libsepol.a
 
 -include $(DEPS)

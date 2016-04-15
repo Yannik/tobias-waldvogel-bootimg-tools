@@ -3,19 +3,18 @@
 
 # dependency generation loosely based on http://make.mad-scientist.net/papers/advanced-auto-dependency-generation
 CFLAGS=-I ../libsepol -I ../include2 --sysroot=$(SYSROOT)
-LIBS="../libsepol/libsepol_$(ARCH).a"
+LIBS="../libsepol/libsepol.a"
 SRCS = $(wildcard *.c)
 OBJS=$(SRCS:.c=.o)
 DEPS=$(SRCS:.c=.d)
 DEPFLAGS = -MT $@ -MMD -MP -MF $*.Td
 POSTCOMPILE = @mv -f $*.Td $*.d
-ARCH=x86
 .PHONY: all clean build
 
-all: bootimg_$(ARCH)
+all: bootimg
 
-bootimg_$(ARCH): $(OBJS)
-	$(CC) -o bootimg_$(ARCH) $(OBJS) -static $(LIBS)
+bootimg: $(OBJS)
+	$(CC) -o bootimg $(CFLAGS) $(OBJS) -static $(LIBS)
 
 %.o: %.c %.d 
 	$(CC) -c $(DEPFLAGS) $(CFLAGS) $< -o $@
@@ -24,6 +23,6 @@ bootimg_$(ARCH): $(OBJS)
 %.d: ;
 
 clean:
-	rm -f *.o *.d bootimg_$(ARCH)
+	rm -f *.o *.d bootimg
 
 -include $(DEPS)
