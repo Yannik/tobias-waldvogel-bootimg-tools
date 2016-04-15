@@ -1,0 +1,4 @@
+*.o
+*.d
+bootimg/bootimg*
+libsepol/libsepol*
